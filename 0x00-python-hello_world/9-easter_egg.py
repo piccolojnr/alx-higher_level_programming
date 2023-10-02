@@ -1,4 +1,4 @@
-#!/usr/python3
+#!/usr/bin/python3
 tim_peters = """The Zen of Python, by Tim Peters
 
 Beautiful is better than ugly.
