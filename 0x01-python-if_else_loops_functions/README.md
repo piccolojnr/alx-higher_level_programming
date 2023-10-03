@@ -59,3 +59,7 @@
 - [10-add](./10-add.py)
 - [11-pow](./11-pow.py)
 - [12-fizzbuzz](./12-fizzbuzz.py)
+- [lists](./lists.h)
+- [linked_lists](./linked_lists.c)
+- [13-main](./13-main.c)
+- [inser_number](./13-insert_number.c)
