@@ -62,4 +62,7 @@
 - [lists](./lists.h)
 - [linked_lists](./linked_lists.c)
 - [13-main](./13-main.c)
-- [inser_number](./13-insert_number.c)
+- [insert_number](./13-insert_number.c)
+- [100-print_tebahpla](./100-print_tebahpla.py)
+- [101-remove_char_at](./101-remove_char_at.py)
+- [102-magic_calculation](./102-magic_calculation.py)
