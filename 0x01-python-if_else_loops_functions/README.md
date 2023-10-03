@@ -55,3 +55,7 @@
 - [5-print_comb2](./5-print_comb2.py)
 - [7-islower](./7-islower.py)
 - [8-uppercase](./8-uppercase.py)
+- [9-print_last_digit](./9-print_last_digit.py)
+- [10-add](./10-add.py)
+- [11-pow](./11-pow.py)
+- [12-fizzbuzz](./12-fizzbuzz.py)
