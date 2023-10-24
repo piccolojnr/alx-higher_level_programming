@@ -46,3 +46,17 @@
 - All your classes should have a documentation (python3 -c 'print(**import**("my_module").MyClass.**doc**)')
 - All your functions (inside and outside a class) should have a documentation (python3 -c 'print(**import**("my_module").my_function.**doc**)' and python3 -c 'print(**import**("my_module").MyClass.my_function.**doc**)')
 - A documentation is not a simple word, it’s a real sentence explaining what’s the purpose of the module, class or method (the length of it will be verified)
+
+## files
+
+- [0-square](./0-square.py)
+- [1-square](./1-square.py)
+- [2-square](./2-square.py)
+- [3-square](./3-square.py)
+- [4-square](./4-square.py)
+- [5-square](./5-square.py)
+- [6-square](./6-square.py)
+- [singly_linked_list](./100-singly_linked_list.py)
+- [101-square](./101-square.py)
+- [102-square](./102-square.py)
+- [magic_class](./103-magic_class.py)
