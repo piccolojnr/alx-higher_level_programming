@@ -60,3 +60,7 @@
 - [list_division](./4-list_division.py)
 - [raise_exception](./5-raise_exception.py)
 - [raise_exception_msg](./6-raise_exception_msg.py)
+- [safe_print_integer_err](./100-safe_print_integer_err.py)
+- [safe_function](./101-safe_function.py)
+- [magic_calculation](./102-magic_calculation.py)
+- [python](./103-python.c)
