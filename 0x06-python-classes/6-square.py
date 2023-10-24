@@ -1,15 +1,15 @@
 #!/usr/bin/python3
+"""Defines a square"""
+
+
 class Square:
-    """class square that defines a square by:
-    Attributes:
-        size (int): size of the square
-        position (tuple): position of the square
-    Methods:
-        area: returns the current square area
-        my_print: prints the square with the character #
-    """
+    """class square that defines a square by:"""
 
     def __init__(self, size=0, position=(0, 0)):
+        """Attributes:
+        size (int): size of the square
+        position (tuple): position of the square
+        """
         if type(size) is not int:
             raise TypeError("size must be an integer")
         elif size < 0:
@@ -26,10 +26,12 @@ class Square:
 
     @property
     def size(self):
+        """size: returns the size of the square"""
         return self.__size
 
     @size.setter
     def size(self, value):
+        """sets the size"""
         if type(value) is not int:
             raise TypeError("size must be an integer")
         elif value < 0:
@@ -39,10 +41,22 @@ class Square:
 
     @property
     def position(self):
+        """returns the position of the square"""
         return self.__position
 
     @position.setter
     def position(self, value):
+        """sets the position of the square
+        to the value passed in the parameter
+        Args:
+            value (tuple): position of the square
+        Raises:
+            TypeError: if value is not a tuple of 2 positive integers
+        Returns:
+            None
+        Sets the position of the square
+        to the value passed in the parameter
+        """
         if type(value) is not tuple or len(value) != 2:
             raise TypeError("position must be a tuple of 2 positive integers")
         elif type(value[0]) is not int or type(value[1]) is not int:
@@ -53,9 +67,11 @@ class Square:
             self.__position = value
 
     def area(self):
+        """area: returns the current square area"""
         return self.__size * self.__size
 
     def my_print(self):
+        """my_print: prints the square with the character #"""
         if self.__size == 0:
             print()
         else:
