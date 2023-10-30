@@ -14,7 +14,7 @@ class Rectangle:
         self.__height = 0
         self.height = height
         self.width = width
-        Rectangle.number_of_instances += 1
+        type(self).number_of_instances += 1
 
     @property
     def width(self):
@@ -37,6 +37,7 @@ class Rectangle:
 
     @height.setter
     def height(self, value):
+        """sets the height"""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -68,7 +69,7 @@ class Rectangle:
 
     def __del__(self):
         """deletes the rectangle"""
-        Rectangle.number_of_instances -= 1
+        type(self).number_of_instances -= 1
         print("Bye rectangle...")
 
     @staticmethod
