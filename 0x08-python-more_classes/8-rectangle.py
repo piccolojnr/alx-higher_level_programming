@@ -14,7 +14,7 @@ class Rectangle:
         self.__height = 0
         self.height = height
         self.width = width
-        Rectangle.number_of_instances += 1
+        type(self).number_of_instances += 1
 
     @property
     def width(self):
@@ -37,6 +37,7 @@ class Rectangle:
 
     @height.setter
     def height(self, value):
+        """sets the height"""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -68,7 +69,7 @@ class Rectangle:
 
     def __del__(self):
         """deletes the rectangle"""
-        Rectangle.number_of_instances -= 1
+        type(self).number_of_instances -= 1
         print("Bye rectangle...")
 
     @staticmethod
@@ -77,7 +78,7 @@ class Rectangle:
         if not isinstance(rect_1, Rectangle):
             raise TypeError("rect_1 must be an instance of Rectangle")
         if not isinstance(rect_2, Rectangle):
-            raise TypeError("ract_2 must be an instance of Rectangle")
+            raise TypeError("rect_2 must be an instance of Rectangle")
         if rect_1.area() >= rect_2.area():
             return rect_1
         return rect_2
