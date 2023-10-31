@@ -1,0 +1,36 @@
+"""
+
+# Test cases for the text_indentation function
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+::
+
+    # Test 1: Valid input with ".", "?", and ":" characters
+    >>> text_indentation("This is a simple text.It has some questions?And some answers:like this.")
+    This is a simple text.
+    <BLANKLINE>
+    It has some questions?
+    <BLANKLINE>
+    And some answers:
+    <BLANKLINE>
+    like this.
+    <BLANKLINE>
+
+::
+
+    # Test 3: Valid input with no characters that trigger new lines
+    >>> text_indentation("No special characters in this text.")
+    No special characters in this text.
+    <BLANKLINE>
+
+::
+
+    # Test 4: Invalid input (not a string)
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+        ...
+    TypeError: text must be a string
+
+::
+
+"""
