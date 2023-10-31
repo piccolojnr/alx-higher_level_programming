@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-import sys
 
 """Define a class for a chessboard board to solve the 8 gueens puzzle"""
+
+
+import sys
 
 
 class Board:
@@ -85,15 +87,13 @@ def main(n):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
-        exit(1)
-    else:
-        try:
-            n = int(sys.argv[1])
-            if n < 4:
-                print("N must be at least 4")
-                exit(1)
-            else:
-                main(n)
-        except ValueError:
-            print("N must be a number")
-            exit(1)
+        sys.exit(1)
+    if sys.argv[1].isdigit() is False:
+        print("N must be a number")
+        sys.exit(1)
+    if int(sys.argv[1]) < 4:
+        print("N must be at least 4")
+        sys.exit(1)
+
+    n = int(sys.argv[1])
+    main(n)
