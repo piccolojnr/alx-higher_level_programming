@@ -1,4 +1,4 @@
-#!/bin/bash/python3
+#!/usr/bin/python3
 import sys
 
 """Define a class for a chessboard board to solve the 8 gueens puzzle"""
