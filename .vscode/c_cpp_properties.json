@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\Python311\\include"
+                "C:\\Python311\\include",
+                "C:/msys64/ucrt64/include/python3.10"
             ],
             "defines": [],
             "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
