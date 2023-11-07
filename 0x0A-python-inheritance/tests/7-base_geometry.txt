@@ -1,0 +1,29 @@
+# base_geometry_doctest.txt
+
+# Import the BaseGeometry class from your Python module (e.g., basegeometry.py).
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+# Create an instance of the BaseGeometry class.
+>>> geom = BaseGeometry()
+
+# Use the area method, which should raise an exception as it's not implemented.
+>>> geom.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
+
+# Use the integer_validator method to validate an integer value.
+>>> geom.integer_validator("side_length", 5)
+5
+
+# Try to validate a non-integer value, which should raise a TypeError.
+>>> geom.integer_validator("side_length", "invalid")
+Traceback (most recent call last):
+...
+TypeError: side_length must be an integer
+
+# Try to validate a non-positive integer value, which should raise a ValueError.
+>>> geom.integer_validator("side_length", 0)
+Traceback (most recent call last):
+...
+ValueError: side_length must be greater than 0
