@@ -15,11 +15,36 @@ class Rectangle(Base):
         self.y = y
         super().__init__(id)
 
+    def to_dictionary(self):
+        """to_dictionary"""
+        return {
+            "id": self.id,
+            "width": self.width,
+            "height": self.height,
+            "x": self.x,
+            "y": self.y,
+        }
+
     def __str__(self) -> str:
         """str"""
-        return "[Rectangle] ({}) {}/{} - {}/{}".format(
-            self.id, self.__x, self.__y, self.__width, self.__height
+        return "[{}] ({}) {}/{} - {}/{}".format(
+            type(self).__name__,
+            self.id,
+            self.__x,
+            self.__y,
+            self.__width,
+            self.__height,
         )
+
+    def update(self, *args, **kwargs):
+        """update the class"""
+        if args:
+            attributes = ["id", "width", "height", "x", "y"]
+            for i in range(len(args)):
+                setattr(self, attributes[i], args[i])
+        elif kwargs:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
 
     def display(self):
         """display"""

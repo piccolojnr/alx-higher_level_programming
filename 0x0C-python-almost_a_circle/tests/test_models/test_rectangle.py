@@ -5,12 +5,52 @@ import sys
 
 
 class TestRectanle(unittest.TestCase):
+    def test_to_dictionary(self):
+        r1 = Rectangle(10, 2, 1, 9, 1)
+
+        r1_dictionary = r1.to_dictionary()
+        self.assertEqual(
+            r1_dictionary, {"id": 1, "height": 2, "width": 10, "x": 1, "y": 9}
+        )
+
+        r2 = Rectangle(1, 1)
+        r2.update(**r1_dictionary)
+        self.assertEqual(str(r1), str(r2))
+
+    def test_update_kwargs(self):
+        r1 = Rectangle(10, 10, 10, 10, 1)
+        self.assertEqual(r1.id, 1)
+
+        r1.update(height=1)
+        self.assertEqual(r1.height, 1)
+        r1.update(width=1, x=2)
+        self.assertEqual(r1.width, 1)
+        self.assertEqual(r1.x, 2)
+        r1.update(y=1, width=2, x=3, id=89)
+        self.assertEqual(r1.id, 89)
+        self.assertEqual(r1.y, 1)
+
+    def test_update_args(self):
+        r1 = Rectangle(10, 10, 10, 10, 1)
+
+        self.assertEqual(r1.id, 1)
+
+        r1.update(89)
+        self.assertEqual(r1.id, 89)
+        r1.update(89, 2)
+        self.assertEqual(r1.width, 2)
+        r1.update(89, 2, 3)
+        self.assertEqual(r1.height, 3)
+        r1.update(89, 2, 3, 4)
+        self.assertEqual(r1.x, 4)
+        r1.update(89, 2, 3, 4, 5)
+        self.assertEqual(r1.y, 5)
+
     def test_str(self):
         # test __str__
         rect1 = Rectangle(4, 6, 2, 1, 12)
 
         self.assertEqual(str(rect1), "[Rectangle] (12) 2/1 - 4/6")
-        print("run test_str successfully")
 
     def test_display(self):
         # Redirect stdout to capture the print output
@@ -28,8 +68,6 @@ class TestRectanle(unittest.TestCase):
         expected_output = "\n\n  ####\n  ####\n  ####\n  ####\n  ####\n  ####\n"
         self.assertEqual(captured_output.getvalue(), expected_output)
 
-        print("run test_display successfully")
-
     def test_area(self):
         # Test area method
         rect1 = Rectangle(4, 5)
@@ -37,7 +75,6 @@ class TestRectanle(unittest.TestCase):
 
         rect2 = Rectangle(3, 2)
         self.assertEqual(rect2.area(), 6)
-        print("run test_area successfully")
 
     def test_width_validation(self):
         # Test valid width
@@ -52,7 +89,6 @@ class TestRectanle(unittest.TestCase):
         # Test width <= 0
         with self.assertRaises(ValueError):
             rect.width = 0
-        print("run test_width_validation successfully")
 
     def test_height_validation(self):
         # Test valid height
@@ -67,7 +103,6 @@ class TestRectanle(unittest.TestCase):
         # Test height <= 0
         with self.assertRaises(ValueError):
             rect.height = -1
-        print("run test_height_validation successfully")
 
     def test_x_validation(self):
         # Test valid x
@@ -82,7 +117,6 @@ class TestRectanle(unittest.TestCase):
         # Test x < 0
         with self.assertRaises(ValueError):
             rect.x = -3
-        print("run test_x_validation successfully")
 
     def test_y_validation(self):
         # Test valid y
@@ -97,7 +131,6 @@ class TestRectanle(unittest.TestCase):
         # Test y < 0
         with self.assertRaises(ValueError):
             rect.y = -2
-        print("run test_y_validation successfully")
 
     def test_constructor(self):
         # Test constructor without id
@@ -115,7 +148,6 @@ class TestRectanle(unittest.TestCase):
         self.assertEqual(rect2.height, 3)
         self.assertEqual(rect2.x, 0)
         self.assertEqual(rect2.y, 0)
-        print("run test_constructor successfully")
 
 
 if __name__ == "__main__":
