@@ -15,6 +15,9 @@ class Rectangle(Base):
         self.y = y
         super().__init__(id)
 
+    def print_name(cls):
+        return super().print_name()
+
     def to_dictionary(self):
         """to_dictionary"""
         return {

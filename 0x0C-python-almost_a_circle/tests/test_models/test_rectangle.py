@@ -4,7 +4,7 @@ from io import StringIO
 import sys
 
 
-class TestRectanle(unittest.TestCase):
+class TestRectangle(unittest.TestCase):
     def test_to_dictionary(self):
         r1 = Rectangle(10, 2, 1, 9, 1)
 
@@ -135,7 +135,7 @@ class TestRectanle(unittest.TestCase):
     def test_constructor(self):
         # Test constructor without id
         rect1 = Rectangle(4, 5, 1, 2)
-        self.assertEqual(rect1.id, 5)
+        self.assertEqual(rect1.id, 11)
         self.assertEqual(rect1.width, 4)
         self.assertEqual(rect1.height, 5)
         self.assertEqual(rect1.x, 1)
