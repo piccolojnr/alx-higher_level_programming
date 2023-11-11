@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import json
+import csv
+import tkinter as tk
 
 
 """Base class"""
@@ -60,3 +62,64 @@ class Base:
                 return [cls.create(**d) for d in cls.from_json_string(f.read())]
         except:
             return []
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """save_to_file_csv"""
+        with open(cls.__name__ + ".csv", mode="w", newline="") as f:
+            writer = csv.writer(f)
+            for obj in list_objs:
+                if cls.__name__ == "Rectangle":
+                    writer.writerow([obj.width, obj.height, obj.x, obj.y])
+                elif cls.__name__ == "Square":
+                    writer.writerow([obj.size, obj.x, obj.y])
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """load_from_file_csv"""
+        try:
+            result = []
+            with open(cls.__name__ + ".csv", "r") as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    row = list(map(int, row))
+                    if cls.__name__ == "Rectangle":
+                        d = {
+                            "width": row[0],
+                            "height": row[1],
+                            "x": row[2],
+                            "y": row[3],
+                        }
+                    elif cls.__name__ == "Square":
+                        d = {"size": row[0], "x": row[1], "y": row[2]}
+
+                    result.append(cls.create(**d))
+                return result
+        except:
+            return []
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """draw"""
+
+        root = tk.Tk()
+        root.title("Drawing")
+        root.minsize(600, 600)
+        canvas = tk.Canvas(root, width=600, height=600)
+        canvas.pack()
+        for rect in list_rectangles:
+            canvas.create_rectangle(
+                rect.x,
+                rect.y,
+                rect.x + rect.width,
+                rect.y + rect.height,
+            )
+        for sq in list_squares:
+            canvas.create_rectangle(
+                sq.x,
+                sq.y,
+                sq.x + sq.size,
+                sq.y + sq.size,
+            )
+        root.mainloop()
+        return None
