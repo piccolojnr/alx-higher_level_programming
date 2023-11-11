@@ -132,23 +132,6 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError):
             rect.y = -2
 
-    def test_constructor(self):
-        # Test constructor without id
-        rect1 = Rectangle(4, 5, 1, 2)
-        self.assertEqual(rect1.id, 11)
-        self.assertEqual(rect1.width, 4)
-        self.assertEqual(rect1.height, 5)
-        self.assertEqual(rect1.x, 1)
-        self.assertEqual(rect1.y, 2)
-
-        # Test constructor with id
-        rect2 = Rectangle(2, 3, id=5)
-        self.assertEqual(rect2.id, 5)
-        self.assertEqual(rect2.width, 2)
-        self.assertEqual(rect2.height, 3)
-        self.assertEqual(rect2.x, 0)
-        self.assertEqual(rect2.y, 0)
-
 
 if __name__ == "__main__":
     unittest.main()

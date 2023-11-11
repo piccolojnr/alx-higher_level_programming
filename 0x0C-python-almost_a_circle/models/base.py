@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import json
 import csv
-import tkinter as tk
+import turtle
 
 
 """Base class"""
@@ -102,24 +102,34 @@ class Base:
     def draw(list_rectangles, list_squares):
         """draw"""
 
-        root = tk.Tk()
-        root.title("Drawing")
-        root.minsize(600, 600)
-        canvas = tk.Canvas(root, width=600, height=600)
-        canvas.pack()
+        pen = turtle.Turtle()
+        pen.screen.bgcolor("black")
+        pen.pensize(3)
+        pen.shape("turtle")
+
+        pen.color("white")
         for rect in list_rectangles:
-            canvas.create_rectangle(
-                rect.x,
-                rect.y,
-                rect.x + rect.width,
-                rect.y + rect.height,
-            )
+            pen.showturtle()
+            pen.up()
+            pen.goto(rect.x, rect.y)
+            pen.down()
+            for i in range(2):
+                pen.forward(rect.width)
+                pen.left(90)
+                pen.forward(rect.height)
+                pen.left(90)
+
+        pen.color("red")
         for sq in list_squares:
-            canvas.create_rectangle(
-                sq.x,
-                sq.y,
-                sq.x + sq.size,
-                sq.y + sq.size,
-            )
-        root.mainloop()
+            pen.up()
+            pen.showturtle()
+            pen.goto(sq.x, sq.y)
+            pen.down()
+            for i in range(2):
+                pen.forward(sq.size)
+                pen.left(90)
+                pen.forward(sq.size)
+                pen.left(90)
+
+        turtle.exitonclick()
         return None

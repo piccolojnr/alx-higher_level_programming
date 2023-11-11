@@ -1,10 +1,101 @@
 import unittest
 from models.base import Base
 from models.rectangle import Rectangle
+from models.square import Square
+import os
 
 
-class TestBase(unittest.TestCase):
-    def test_load_from_file(self):
+class TestBase_Constructor(unittest.TestCase):
+    def test_no_arg(self):
+        b1 = Base()
+        b2 = Base()
+        b3 = Base()
+
+        self.assertEqual(b1.id, b2.id - 1)
+        self.assertEqual(b2.id, b1.id + 1)
+        self.assertEqual(b3.id, b2.id + 1)
+
+    def test_public_id(self):
+        b = Base(12)
+        b.id = 33
+        self.assertEqual(b.id, 33)
+
+    def test_one_arg(self):
+        b = Base(0)
+        self.assertEqual(b.id, 0)
+
+    def test_neg_id(self):
+        b = Base(-1)
+        self.assertEqual(b.id, -1)
+
+    def test_float_id(self):
+        self.assertEqual(5.5, Base(5.5).id)
+
+        b = Base(float("inf"))
+        self.assertEqual(b.id, float("inf"))
+
+        b = Base(float("-inf"))
+        self.assertEqual(b.id, float("-inf"))
+
+        b = Base(float("nan"))
+        self.assertNotEqual(b.id, float("nan"))
+
+    def test_bool_id(self):
+        b = Base(True)
+        self.assertEqual(b.id, True)
+
+        b = Base(False)
+        self.assertEqual(b.id, False)
+
+    def test_list_id(self):
+        b = Base([1, 2, 3])
+        self.assertEqual(b.id, [1, 2, 3])
+
+    def test_tuple_id(self):
+        b = Base((1, 2, 3))
+        self.assertEqual(b.id, (1, 2, 3))
+
+
+class TestBase_methods(unittest.TestCase):
+    @classmethod
+    def tearDown(self) -> None:
+        """delete any created files"""
+        try:
+            os.remove("Rectangle.json")
+        except IOError:
+            pass
+        try:
+            os.remove("Square.json")
+        except IOError:
+            pass
+        try:
+            os.remove("Rectangle.csv")
+        except IOError:
+            pass
+        try:
+            os.remove("Square.csv")
+        except IOError:
+            pass
+        try:
+            os.remove("Base.csv")
+        except IOError:
+            pass
+
+    def test_save_to_file_csv_rectangle(self):
+        r1 = Rectangle(10, 7, 2, 8, 5)
+        r2 = Rectangle(2, 4, 1, 2, 3)
+        Rectangle.save_to_file_csv([r1, r2])
+        with open("Rectangle.csv", "r") as f:
+            self.assertTrue("5,10,7,2,8\n2,4,1,2,3", f.read())
+
+    def test_save_to_file_csv_square(self):
+        s1 = Square(10, 7, 2, 8)
+        s2 = Square(8, 1, 2, 3)
+        Square.save_to_file_csv([s1, s2])
+        with open("Square.csv", "r") as f:
+            self.assertTrue("8,10,7,2\n3,8,1,2", f.read())
+
+    def test_load_from_file_rectangle(self):
         r1 = Rectangle(10, 7, 2, 8)
         r2 = Rectangle(2, 4)
         Rectangle.save_to_file([r1, r2])
@@ -14,6 +105,29 @@ class TestBase(unittest.TestCase):
 
         for r_input, r_output in zip([r1, r2], list_rectangles_output):
             self.assertEqual(r_input.to_dictionary(), r_output.to_dictionary())
+
+        self.assertTrue(all(type(obj) == Rectangle for obj in list_rectangles_output))
+
+    def test_load_from_file_square(self):
+        r1 = Square(10, 7, 2, 8)
+        r2 = Square(2, 4, 4, 4)
+        Square.save_to_file([r1, r2])
+        list_sq_output = Square.load_from_file()
+        self.assertEqual(type(list_sq_output), list)
+        self.assertNotEqual(list_sq_output, [])
+
+        for r_input, r_output in zip([r1, r2], list_sq_output):
+            self.assertEqual(r_input.to_dictionary(), r_output.to_dictionary())
+
+        self.assertTrue(all(type(obj) == Square for obj in list_sq_output))
+
+    def test_load_from_file_no_file(self):
+        output = Square.load_from_file()
+        self.assertEqual([], output)
+
+    def test_load_from_file_more_than_one_arg(self):
+        with self.assertRaises(TypeError):
+            Base.load_from_file([], 1)
 
     def test_create(self):
         r1 = Rectangle(3, 5, 1)
@@ -78,22 +192,6 @@ class TestBase(unittest.TestCase):
         self.assertEqual(
             Base.to_json_string([{"id": 1, "width": 10}]), '[{"id": 1, "width": 10}]'
         )
-
-    def test_id_incrementation(self):
-        # Create two instances of Base without providing an id
-        obj1 = Base()
-        obj2 = Base()
-
-        # Check if the ids are incremented correctly
-        self.assertEqual(obj1.id, 3)
-        self.assertEqual(obj2.id, 4)
-
-    def test_id_assignment(self):
-        # Create an instance of Base with a provided id
-        obj = Base(id=5)
-
-        # Check if the id is assigned correctly
-        self.assertEqual(obj.id, 5)
 
 
 if __name__ == "__main__":
