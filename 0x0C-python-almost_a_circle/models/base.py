@@ -59,8 +59,11 @@ class Base:
         """load_from_file"""
         try:
             with open(cls.__name__ + ".json", "r") as f:
-                return [cls.create(**d) for d in cls.from_json_string(f.read())]
-        except:
+                return [
+                    cls.create(**d)
+                    for d in cls.from_json_string(f.read())
+                    ]
+        except FileNotFoundError:
             return []
 
     @classmethod
@@ -95,7 +98,7 @@ class Base:
 
                     result.append(cls.create(**d))
                 return result
-        except:
+        except FileNotFoundError:
             return []
 
     @staticmethod

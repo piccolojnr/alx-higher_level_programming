@@ -3,6 +3,7 @@ from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
 import os
+import pep8
 
 
 class TestBase_Constructor(unittest.TestCase):
@@ -57,7 +58,37 @@ class TestBase_Constructor(unittest.TestCase):
 
 
 class TestBase_methods(unittest.TestCase):
-    @classmethod
+    def test_pep8_model(self):
+        """
+        Tests for pep8 model
+        """
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(["models/base.py"])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
+
+    def test_pep8_test(self):
+        """
+        Tests for pep8 test
+        """
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(["tests/test_models/test_base.py"])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
+
+    def test_docstrings(self):
+        self.assertIsNotNone(Base.__doc__)
+        self.assertIs(hasattr(Base, "__init__"), True)
+        self.assertIsNotNone(Base.__init__.__doc__)
+        self.assertIs(hasattr(Base, "create"), True)
+        self.assertIsNotNone(Base.create.__doc__)
+        self.assertIs(hasattr(Base, "to_json_string"), True)
+        self.assertIsNotNone(Base.to_json_string.__doc__)
+        self.assertIs(hasattr(Base, "from_json_string"), True)
+        self.assertIsNotNone(Base.from_json_string.__doc__)
+        self.assertIs(hasattr(Base, "save_to_file"), True)
+        self.assertIsNotNone(Base.save_to_file.__doc__)
+        self.assertIs(hasattr(Base, "load_from_file"), True)
+        self.assertIsNotNone(Base.load_from_file.__doc__)
+
     def tearDown(self) -> None:
         """delete any created files"""
         try:
@@ -106,20 +137,23 @@ class TestBase_methods(unittest.TestCase):
         for r_input, r_output in zip([r1, r2], list_rectangles_output):
             self.assertEqual(r_input.to_dictionary(), r_output.to_dictionary())
 
-        self.assertTrue(all(type(obj) == Rectangle for obj in list_rectangles_output))
+        self.assertTrue(
+            all(isinstance(obj, Rectangle) for obj in list_rectangles_output)
+        )
 
     def test_load_from_file_square(self):
         r1 = Square(10, 7, 2, 8)
         r2 = Square(2, 4, 4, 4)
         Square.save_to_file([r1, r2])
         list_sq_output = Square.load_from_file()
+
         self.assertEqual(type(list_sq_output), list)
         self.assertNotEqual(list_sq_output, [])
 
         for r_input, r_output in zip([r1, r2], list_sq_output):
             self.assertEqual(r_input.to_dictionary(), r_output.to_dictionary())
 
-        self.assertTrue(all(type(obj) == Square for obj in list_sq_output))
+        self.assertTrue(all(isinstance(obj, Square) for obj in list_sq_output))
 
     def test_load_from_file_no_file(self):
         output = Square.load_from_file()
@@ -145,7 +179,10 @@ class TestBase_methods(unittest.TestCase):
             content = file.read()
         self.assertEqual(
             content,
-            '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}, {"id": 2, "width": 2, "height": 4, "x": 5, "y": 6}]',
+            (
+                '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}, '
+                '{"id": 2, "width": 2, "height": 4, "x": 5, "y": 6}]'
+            ),
         )
 
     def test_from_json_string(self):
@@ -161,7 +198,10 @@ class TestBase_methods(unittest.TestCase):
         self.assertEqual(type(list_output), list)
         self.assertEqual(list_input, list_output)
 
-        json_string = '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}, {"id": 2, "width": 2, "height": 3, "x": 3, "y": 4}]'
+        json_string = (
+            '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8},'
+            '{"id": 2, "width": 2, "height": 3, "x": 3, "y": 4}]'
+        )
         dictionary = Base.from_json_string(json_string)
         self.assertEqual(type(dictionary), list)
         self.assertEqual(
@@ -183,14 +223,16 @@ class TestBase_methods(unittest.TestCase):
         self.assertEqual(type(dictionary), dict)
         self.assertEqual(type(json_dictionary), str)
         self.assertEqual(
-            json_dictionary, '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]'
+            json_dictionary,
+            ('[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]'),
         )
         self.assertEqual(Base.to_json_string(None), "[]")
         self.assertEqual(Base.to_json_string([]), "[]")
         self.assertEqual(Base.to_json_string([{}]), "[{}]")
         self.assertEqual(Base.to_json_string([{"id": 1}]), '[{"id": 1}]')
         self.assertEqual(
-            Base.to_json_string([{"id": 1, "width": 10}]), '[{"id": 1, "width": 10}]'
+            Base.to_json_string([{"id": 1, "width": 10}]),
+            ('[{"id": 1, "width": 10}]'),
         )
 
 
