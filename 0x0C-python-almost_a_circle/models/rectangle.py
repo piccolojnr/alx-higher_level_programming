@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 
-"""Rectangle class"""
+"""Module documentation for the rectangle module."""
+
 from models.base import Base
 
 
 class Rectangle(Base):
-    """Rectagle class"""
+    """
+    Rectagle class
+    """
 
     def __init__(self, width, height, x=0, y=0, id=None):
         """init"""
