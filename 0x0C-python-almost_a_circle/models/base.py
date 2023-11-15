@@ -77,7 +77,10 @@ class Base:
         """
         try:
             with open(cls.__name__ + ".json", "r") as f:
-                return [cls.create(**d) for d in cls.from_json_string(f.read())]
+                ls = []
+                for d in cls.from_json_string(f.read()):
+                    ls.append(cls.create(**d))
+                return ls
         except FileNotFoundError:
             return []
 
