@@ -13,7 +13,22 @@ class Rectangle(Base):
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """init"""
+        """
+        Initializing the Rectangle class
+        Args:
+            width: width of the rectangle
+            height: height of the rectangle
+            x: x coordinate of the rectangle
+            y: y coordinate of the rectangle
+            id: id of the rectangle
+        Raises:
+            TypeError: if width, height, x, y are not integers
+            ValueError: if width, height, x, y are <= 0
+            TypeError: if id is not an integer
+            ValueError: if id is <= 0
+        Returns:
+            None
+        """
         self.width = width
         self.height = height
         self.x = x
