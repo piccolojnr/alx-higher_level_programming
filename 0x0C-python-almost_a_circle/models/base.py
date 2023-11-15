@@ -1,18 +1,14 @@
 #!/usr/bin/python3
+
+"""Module documentation for the base module."""
+
 import json
 import csv
 import turtle
 
 
-"""Base class"""
-
-
 class Base:
-    """
-    Base class
-    Attributes:
-        id (int): id of the Base
-    """
+    """Base class for other classes in the project."""
 
     __nb_objects = 0
 
