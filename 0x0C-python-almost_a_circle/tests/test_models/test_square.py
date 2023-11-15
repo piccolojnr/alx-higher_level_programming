@@ -106,6 +106,14 @@ class TestRectanle(unittest.TestCase):
         self.assertEqual(str(sq), "[Square] (7) 12/13 - 11")
         sq.id = 8
 
+    def test_square_existence(self):
+        square_instance = Square(1, 2, 3)
+
+        self.assertIsInstance(square_instance, Square)
+        self.assertEqual(square_instance.x, 1)
+        self.assertEqual(square_instance.y, 2)
+        self.assertEqual(square_instance.size, 3)
+
 
 if __name__ == "__main__":
     unittest.main()
