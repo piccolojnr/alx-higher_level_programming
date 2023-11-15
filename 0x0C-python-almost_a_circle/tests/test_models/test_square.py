@@ -110,9 +110,9 @@ class TestRectanle(unittest.TestCase):
         square_instance = Square(1, 2, 3)
 
         self.assertIsInstance(square_instance, Square)
-        self.assertEqual(square_instance.x, 1)
-        self.assertEqual(square_instance.y, 2)
-        self.assertEqual(square_instance.size, 3)
+        self.assertEqual(square_instance.x, 2)
+        self.assertEqual(square_instance.y, 3)
+        self.assertEqual(square_instance.size, 1)
 
 
 if __name__ == "__main__":
