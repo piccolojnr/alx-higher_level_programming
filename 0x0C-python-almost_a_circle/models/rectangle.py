@@ -1,13 +1,15 @@
 #!/usr/bin/python3
-
-"""Module documentation for the rectangle module."""
-
+"""
+    Class Rectangle
+"""
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Rectagle class
+    Defining the Rectangle class
+    Inherits from:
+        Base
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
