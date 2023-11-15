@@ -8,12 +8,22 @@ import turtle
 
 
 class Base:
-    """Base class"""
+    """
+    Base class
+    Attributes:
+        id (int): id of the Base
+    """
 
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """init"""
+        """
+        init
+        Args:
+            id (int): id of the Base
+        Returns:
+            None
+        """
         if id is not None:
             self.id = id
         else:
@@ -39,14 +49,22 @@ class Base:
 
     @staticmethod
     def from_json_string(json_string):
-        """from_json_string"""
+        """
+        from_json_string
+        Returns:
+            list: list of instances
+        """
         if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
-        """create"""
+        """
+        create
+        Returns:
+            instance: instance of the class
+        """
         if cls.__name__ == "Rectangle":
             dummy = cls(1, 1)
         elif cls.__name__ == "Square":
@@ -56,19 +74,26 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        """load_from_file"""
+        """
+        load_from_file
+        Returns:
+            list: list of instances
+        """
         try:
             with open(cls.__name__ + ".json", "r") as f:
-                return [
-                    cls.create(**d)
-                    for d in cls.from_json_string(f.read())
-                    ]
+                return [cls.create(**d) for d in cls.from_json_string(f.read())]
         except FileNotFoundError:
             return []
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        """save_to_file_csv"""
+        """
+        save_to_file_csv
+        Args:
+            list_objs: list of instances
+        Returns:
+            None: None. (void function)
+        """
         with open(cls.__name__ + ".csv", mode="w", newline="") as f:
             writer = csv.writer(f)
             for obj in list_objs:
@@ -79,7 +104,11 @@ class Base:
 
     @classmethod
     def load_from_file_csv(cls):
-        """load_from_file_csv"""
+        """
+        load_from_file_csv
+        Returns:
+            list: list of instances
+        """
         try:
             result = []
             with open(cls.__name__ + ".csv", "r") as f:
@@ -103,8 +132,13 @@ class Base:
 
     @staticmethod
     def draw(list_rectangles, list_squares):
-        """draw"""
-
+        """draw
+        Args:
+            list_rectangles: list of rectangles
+            list_squares: list of squares
+        Returns:
+            None: None. (void function)
+        """
         pen = turtle.Turtle()
         pen.screen.bgcolor("black")
         pen.pensize(3)
