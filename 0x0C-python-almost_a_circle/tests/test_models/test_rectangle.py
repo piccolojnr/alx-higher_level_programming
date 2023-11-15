@@ -5,6 +5,50 @@ import sys
 
 
 class TestRectangle(unittest.TestCase):
+    def test_no_id(self):
+        r1 = Rectangle(1, 2)
+        r2 = Rectangle(1, 2)
+
+        self.assertEqual(r1.id, r2.id - 1)
+        self.assertEqual(r2.id, r1.id + 1)
+
+        r3 = Rectangle(1, 2, 3)
+        r4 = Rectangle(1, 2, 3)
+
+        self.assertEqual(r3.id, r4.id - 1)
+        self.assertEqual(r4.id, r3.id + 1)
+
+    def test_type_error(self):
+        with self.assertRaises(TypeError):
+            Rectangle("1", 2)
+
+        with self.assertRaises(TypeError):
+            Rectangle(1, "2")
+
+        with self.assertRaises(TypeError):
+            Rectangle(1, 2, "3")
+
+        with self.assertRaises(TypeError):
+            Rectangle(1, 2, 3, "4")
+
+    def test_value_error(self):
+        with self.assertRaises(ValueError):
+            Rectangle(-1, 2)
+
+        with self.assertRaises(ValueError):
+            Rectangle(0, 2)
+
+        with self.assertRaises(ValueError):
+            Rectangle(1, -2)
+
+        with self.assertRaises(ValueError):
+            Rectangle(1, 0)
+        with self.assertRaises(ValueError):
+            Rectangle(1, 2, -3)
+
+        with self.assertRaises(ValueError):
+            Rectangle(1, 2, 3, -4)
+
     def test_to_dictionary(self):
         r1 = Rectangle(10, 2, 1, 9, 1)
 
@@ -65,7 +109,39 @@ class TestRectangle(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         # compare captured output to expected output
-        expected_output = "\n\n  ####\n  ####\n  ####\n  ####\n  ####\n  ####\n"
+        e_out = "\n\n  ####\n  ####\n  ####\n  ####\n  ####\n  ####\n"
+        self.assertEqual(captured_output.getvalue(), e_out)
+
+    def test_display_no_x_and_y(self):
+        # Redirect stdout to capture the print output
+        captured_output = StringIO()
+        sys.stdout = captured_output
+
+        # test display
+        rect1 = Rectangle(4, 6)
+        rect1.display()
+
+        # reset redirect
+        sys.stdout = sys.__stdout__
+
+        # compare captured output to expected output
+        expected_output = "####\n####\n####\n####\n####\n####\n"
+        self.assertEqual(captured_output.getvalue(), expected_output)
+
+    def test_display_no_y(self):
+        # Redirect stdout to capture the print output
+        captured_output = StringIO()
+        sys.stdout = captured_output
+
+        # test display
+        rect1 = Rectangle(4, 6, 2)
+        rect1.display()
+
+        # reset redirect
+        sys.stdout = sys.__stdout__
+
+        # compare captured output to expected output
+        expected_output = "  ####\n  ####\n  ####\n  ####\n  ####\n  ####\n"
         self.assertEqual(captured_output.getvalue(), expected_output)
 
     def test_area(self):

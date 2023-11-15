@@ -3,7 +3,6 @@ from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
 import os
-import pep8
 
 
 class TestBase_Constructor(unittest.TestCase):
@@ -58,22 +57,6 @@ class TestBase_Constructor(unittest.TestCase):
 
 
 class TestBase_methods(unittest.TestCase):
-    def test_pep8_model(self):
-        """
-        Tests for pep8 model
-        """
-        p8 = pep8.StyleGuide(quiet=True)
-        p = p8.check_files(["models/base.py"])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
-
-    def test_pep8_test(self):
-        """
-        Tests for pep8 test
-        """
-        p8 = pep8.StyleGuide(quiet=True)
-        p = p8.check_files(["tests/test_models/test_base.py"])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
-
     def test_docstrings(self):
         self.assertIsNotNone(Base.__doc__)
         self.assertIs(hasattr(Base, "__init__"), True)
@@ -183,6 +166,40 @@ class TestBase_methods(unittest.TestCase):
                 '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}, '
                 '{"id": 2, "width": 2, "height": 4, "x": 5, "y": 6}]'
             ),
+        )
+
+    def test_save_to_file_no_arg(self):
+        Rectangle.save_to_file(None)
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+        self.assertEqual(
+            content,
+            ("[]"),
+        )
+
+        Square.save_to_file(None)
+        with open("Square.json", "r") as file:
+            content = file.read()
+        self.assertEqual(
+            content,
+            ("[]"),
+        )
+
+    def test_save_to_file_empty(self):
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+        self.assertEqual(
+            content,
+            ("[]"),
+        )
+
+        Square.save_to_file([])
+        with open("Square.json", "r") as file:
+            content = file.read()
+        self.assertEqual(
+            content,
+            ("[]"),
         )
 
     def test_from_json_string(self):

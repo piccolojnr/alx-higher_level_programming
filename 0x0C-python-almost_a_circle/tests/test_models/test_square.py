@@ -52,6 +52,60 @@ class TestRectanle(unittest.TestCase):
         with self.assertRaises(TypeError):
             sq.size = "5"
 
+    def test_square_exists(self):
+        sq1 = Square(1, 2)
+        sq2 = Square(1, 2)
+
+        self.assertEqual(sq1.id, sq2.id - 1)
+        self.assertEqual(sq2.id, sq1.id + 1)
+
+        sq1 = Square(1, 2, 3)
+        sq2 = Square(1, 2, 3)
+
+        self.assertEqual(sq1.id, sq2.id - 1)
+        self.assertEqual(sq2.id, sq1.id + 1)
+
+    def test_type_error(self):
+        with self.assertRaises(TypeError):
+            Square("1")
+
+        with self.assertRaises(TypeError):
+            Square(1, "2")
+
+        with self.assertRaises(TypeError):
+            Square(1, 2, "3")
+
+        with self.assertRaises(ValueError):
+            Square(-1)
+
+        with self.assertRaises(ValueError):
+            Square(1, -2)
+
+        with self.assertRaises(ValueError):
+            Square(1, 2, -3)
+
+        with self.assertRaises(ValueError):
+            Square(0)
+
+    def test_str_exists(self):
+        sq = Square(1, 2, 3, 4)
+        self.assertEqual(str(sq), "[Square] (4) 2/3 - 1")
+        sq.size = 10
+        self.assertEqual(str(sq), "[Square] (4) 2/3 - 10")
+        sq.x = 5
+        self.assertEqual(str(sq), "[Square] (4) 5/3 - 10")
+        sq.y = 6
+        self.assertEqual(str(sq), "[Square] (4) 5/6 - 10")
+        sq.id = 7
+        self.assertEqual(str(sq), "[Square] (7) 5/6 - 10")
+        sq.size = 11
+        self.assertEqual(str(sq), "[Square] (7) 5/6 - 11")
+        sq.x = 12
+        self.assertEqual(str(sq), "[Square] (7) 12/6 - 11")
+        sq.y = 13
+        self.assertEqual(str(sq), "[Square] (7) 12/13 - 11")
+        sq.id = 8
+
 
 if __name__ == "__main__":
     unittest.main()
