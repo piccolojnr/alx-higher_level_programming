@@ -93,13 +93,14 @@ class Base:
         Returns:
             None: None. (void function)
         """
-        with open(cls.__name__ + ".csv", mode="w", newline="") as f:
-            writer = csv.writer(f)
+        filename = cls.__name__ + ".csv"
+        with open(filename, mode="w", newline="") as file:
+            writer = csv.writer(file)
             for obj in list_objs:
                 if cls.__name__ == "Rectangle":
-                    writer.writerow([obj.width, obj.height, obj.x, obj.y])
+                    writer.writerow([obj.id, obj.width, obj.height, obj.x, obj.y])
                 elif cls.__name__ == "Square":
-                    writer.writerow([obj.size, obj.x, obj.y])
+                    writer.writerow([obj.id, obj.size, obj.x, obj.y])
 
     @classmethod
     def load_from_file_csv(cls):
@@ -109,23 +110,17 @@ class Base:
             list: list of instances
         """
         try:
+            filename = cls.__name__ + ".csv"
             result = []
-            with open(cls.__name__ + ".csv", "r") as f:
-                reader = csv.reader(f)
+            with open(filename, mode="r") as file:
+                reader = csv.reader(file)
                 for row in reader:
                     row = list(map(int, row))
                     if cls.__name__ == "Rectangle":
-                        d = {
-                            "width": row[0],
-                            "height": row[1],
-                            "x": row[2],
-                            "y": row[3],
-                        }
+                        result.append(cls(row[1], row[2], row[3], row[4], row[0]))
                     elif cls.__name__ == "Square":
-                        d = {"size": row[0], "x": row[1], "y": row[2]}
-
-                    result.append(cls.create(**d))
-                return result
+                        result.append(cls(row[1], row[2], row[3], row[0]))
+            return result
         except FileNotFoundError:
             return []
 
