@@ -1,11 +1,12 @@
 #!/usr/bin/node
-
-if (isNaN(process.argv[2])) {
-  console.log(1);
-} else {
-  let x = parseInt(process.argv[2]);
-  for (let i = x - 1; i >= 1; i--) {
-    x = x * i;
+function factorial (n) {
+  if (n < 0) {
+    return (-1);
   }
-  console.log(x);
+  if (n === 0 || isNaN(n)) {
+    return (1);
+  }
+  return (n * factorial(n - 1));
 }
+
+console.log(factorial(Number(process.argv[2])));
