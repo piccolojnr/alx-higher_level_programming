@@ -1,45 +1,9 @@
-"""
-    takes in the name of a state as an argument and lists all cities of that state, using the database hbtn_0e_4_usa
-"""
 import sys
 import MySQLdb
 
 """
-    takes in the name of a state as an argument and lists all cities of that state, using the database hbtn_0e_4_usa
+    Lists all cities from the database hbtn_0e_4_usa.
 """
-
-
-def list_cities(username, password, database, search_name):
-    """
-    takes in the name of a state as an argument and lists all cities of that state, using the database hbtn_0e_4_usa
-
-    Args:
-        username (str): The MySQL username.
-        password (str): The MySQL password.
-        database (str): The name of the database.
-        search_name (str): The name of the state to search for.
-
-    Returns:
-        None. Prints the cities to the console.
-    """
-
-    connection = MySQLdb.connect(
-        host="localhost", port=3306, user=username, password=password, database=database
-    )
-
-    cur = connection.cursor()
-    query = "SELECT cities.name FROM cities INNER JOIN states ON cities.state_id = states.id WHERE states.name = %s ORDER BY cities.id ASC;"
-
-    cur.execute(query, (search_name,))
-
-    cities = cur.fetchall()
-    for state in cities:
-        print(state)
-
-    if connection:
-        connection.close()
-
-
 if __name__ == "__main__":
     if len(sys.argv) != 5:
         print(
@@ -48,4 +12,25 @@ if __name__ == "__main__":
         sys.exit(1)
 
     username, password, database, search_name = sys.argv[1:5]
-    list_cities(username, password, database, search_name)
+
+    con = MySQLdb.connect(
+        host="localhost", port=3306, user=username, passwd=password, db=database
+    )
+
+    cur = con.cursor()
+
+    query = "SELECT cities.id, cities.name, states.name  FROM cities LEFT JOIN states ON cities.state_id = states.id WHERE states.name = %s ORDER BY cities.id ASC;"
+
+    cur.execute(query, (search_name,))
+    rows = cur.fetchall()
+    i = 0
+    for row in rows:
+        if i != 0:
+            print(", ", end="")
+        print(row, end="")
+        i += 1
+
+    print()
+
+    cur.close()
+    con.close()
