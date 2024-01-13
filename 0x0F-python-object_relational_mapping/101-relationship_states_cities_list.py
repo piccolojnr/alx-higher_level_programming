@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-All states via SQLAlchemy
+lists all State objects, and corresponding 
+City objects, contained in the database hbtn_0e_101_usa
 """
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -16,11 +17,13 @@ if __name__ == "__main__":
     
     
     session = Session(engine)
-    new_state = State(name="California")
     
-    new_city = City(name="San Francisco")
-    new_state.cities.append(new_city)
+    query = session.query(State).order_by(State.id).all()
     
-    session.add(new_state)
+    for row in query:
+        print("{}: {}".format(row.id, row.name))
+        for city in row.cities:
+            print("    {}: {}".format(city.id, city.name))
+    
     session.commit()
     session.close()
