@@ -1,10 +1,11 @@
+"""
+    Lists all states from the database hbtn_0e_0_usa.
+"""
 #!/usr/bin/python3
 import sys
 import MySQLdb
 
-"""
-    Lists all states from the database hbtn_0e_0_usa.
-"""
+
 if __name__ == "__main__":
     if len(sys.argv) != 5:
         print(

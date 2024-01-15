@@ -1,3 +1,6 @@
+"""
+    Lists all states from the database hbtn_0e_6_usa.
+"""
 #!/usr/bin/python3
 import sys
 from sqlalchemy import create_engine
@@ -5,16 +8,8 @@ from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
 from model_city import City
 
-"""
-    Lists all states from the database hbtn_0e_6_usa.
-"""
-if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print(
-            "Usage: python script.py <mysql_username> <mysql_password> <database_name>"
-        )
-        sys.exit(1)
 
+if __name__ == "__main__":
     username, password, database = sys.argv[1:4]
 
     engine = create_engine(
