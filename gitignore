@@ -1,3 +1,4 @@
 uncrustify
+./*/venv
 venv
 env.ipynb
