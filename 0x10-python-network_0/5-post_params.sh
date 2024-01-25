@@ -1,3 +1,3 @@
 #!/bin/bash
 # takes in a URL and displays all HTTP methods the server will accept.
-curl -sI 0.0.0.0 | grep "Allow" | cut -d " " -f2- 
+curl -sX POST -d "email=test@gmail.com&subject=I will always be here for PLD" "$1"
